@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.6" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+  <name>sfPhpunitPlugin</name>
+  <channel>plugins.symfony-project.org</channel>
+  <summary>Integrate phpunit framework with symfony one</summary>
+  <description>Integrate phpunit framework with symfony one</description>
+	<lead>
+	  <name>Maksim Kotlyar</name>
+	  <user>maksim_ka</user>
+	  <email>mkotlar@ukr.net</email>
+	  <active>yes</active>
+  </lead>
+  <date>2010-08-09</date>
+  <time>15:14:00</time>
+  <version>
+    <release>1.0.13</release>
+    <api>1.2.0</api>
+  </version>
+  <stability>
+    <release>stable</release>
+    <api>stable</api>
+  </stability>
+  <license uri="http://www.symfony-project.org/license">MIT license</license>
+  <notes>-</notes>
+  <contents>
+    <dir name="/">
+      <dir name="config">
+        <file role="data" name="phpunit.yml" />
+        <file role="data" name="sfPhpunitPluginConfiguration.class.php" />
+      </dir>
+      <dir name="data">
+        <dir name="model">
+          <file role="data" name="_method.tpl" />
+          <file role="data" name="ModelTableTestCase.tpl" />
+          <file role="data" name="ModelTestCase.tpl" />
+        </dir>
+        <dir name="templates">
+          <file role="data" name="selenium_index.tpl" />
+        </dir>
+        <dir name="test">
+          <file role="data" name="file.tpl" />
+          <file role="data" name="sfPhpunitPluginTestClass.tpl" />
+        </dir>
+        <dir name="unit">
+          <file role="data" name="AllTests.tpl" />
+					<file role="data" name="BasePhpunitTestCase.tpl" />
+					<file role="data" name="BasePhpunitTestSuite.tpl" />
+					<file role="data" name="TestCase.tpl" />
+        </dir>
+      </dir>
+      <dir name="lib">
+        <dir name="fixture">
+          <dir name="dbunit">
+            <file role="data" name="sfPhpunitFixtureDbUnit.php" />
+          </dir>
+          <dir name="doctrine">
+            <file role="data" name="sfPhpunitDoctrineBaseData.php" />
+            <file role="data" name="sfPhpunitDoctrineData12.php" />
+            <file role="data" name="sfPhpunitDoctrineData14.php" />
+            <file role="data" name="sfPhpunitFixtureDoctrine.php" />
+          </dir>
+          <dir name="propel">
+            <file role="data" name="sfPhpunitFixturePropel.php" />
+            <file role="data" name="sfPhpunitPropelData.php" />
+          </dir>
+          <dir name="file">
+            <file role="data" name="sfPhpunitFixtureFile.php" />
+          </dir>
+          <file role="data" name="sfPhpunitFixture.php" />
+          <file role="data" name="sfPhpunitFixtureAggregatorInterface.php" />
+        </dir>
+        <dir name="loader">
+          <file role="data" name="sfPhpunitBaseTestLoader.php" />
+          <file role="data" name="sfPhpunitPluginTestLoader.class.php" />
+          <file role="data" name="sfPhpunitProjectTestLoader.class.php" />
+        </dir>
+        <dir name="task">
+          <!-- tasks -->
+					<file role="data" name="sfBasePhpunitCreateTask.class.php" />
+					<file role="data" name="sfPhpunitCreateTestTask.class.php" />
+					<file role="data" name="sfPhpunitInitTask.class.php" />
+					<file role="data" name="sfPhpunitRuntestTask.class.php" />
+        </dir>
+        <dir name="test">
+          <!-- test classes -->
+					<file role="data" name="sfBasePhpunitTestSuite.class.php" />
+					<file role="data" name="sfPhpunitContextInitilizerInterface.php" />
+					<file role="data" name="sfPhpunitStubLatter.php" />
+        </dir>
+        <dir name="testcase">
+          <dir name="amf">
+	          <file role="data" name="sfPhpunitAmfClient.php" />
+	          <file role="data" name="sfPhpunitAmfService.php" />
+          </dir>
+          <dir name="selenium">
+            <file role="data" name="sfPhpunitSeleniumRemouteFixtureDecorator.php" />
+          </dir>
+					<file role="data" name="sfBasePhpunitAmfTestCase.class.php" />
+					<file role="data" name="sfBasePhpunitSeleniumTestCase.php" />
+					<file role="data" name="sfBasePhpunitTestCase.class.php" />
+        </dir>
+      </dir>
+      <dir name="modules">
+        <dir name="sfPhpunit">
+          <dir name="actions">
+		        <file role="data" name="actions.class.php" />
+	        </dir>
+	        <dir name="config">
+	 	        <file role="data" name="security.yml" />
+	        </dir>
+	        <dir name="templates">
+					  <file role="data" name="_tree.php" />
+					  <file role="data" name="indexSuccess.php" />
+					  <file role="data" name="runSuccess.php" />
+	        </dir>
+	      </dir>
+      </dir>
+		  <dir name="test">
+		    <dir name="phpunit">
+		      <dir name="fixtures">
+		      </dir>
+		      <file role="data" name="sfPhpunitPluginTestFooTestCase.php" />
+		    </dir>
+		  </dir>
+		  <file role="data" name="LICENSE" />
+		  <file role="data" name="README" />
+    </dir>
+  </contents>
+  <dependencies>
+    <required>
+      <php><min>5.2.4</min></php>
+      <pearinstaller><min>1.4.1</min></pearinstaller>
+      <package>
+				<name>symfony</name>
+				<channel>pear.symfony-project.com</channel>
+				<min>1.2.0</min>
+				<max>1.4.40</max>
+      </package>
+    </required>
+  </dependencies>
+  <phprelease />
+  <changelog>
+    <release>
+      <version>
+        <release>1.0.13</release>
+        <api>1.2.0</api>
+      </version>
+      <stability>
+       <release>stable</release>
+       <api>1.2.0</api>
+      </stability>
+      <license uri="http://www.symfony-project.com/license">MIT license</license>
+      <date>2010-08-09</date>
+      <license>MIT</license>
+      <notes>
+        * improve plugin's test starting.
+        * replace preview release. it was missing some files
+        * make second paramter of getStub optional.
+        * fix _collect_coverage config option
+      </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.0.12</release>
+        <api>1.2.0</api>
+      </version>
+      <stability>
+       <release>stable</release>
+       <api>1.2.0</api>
+      </stability>
+      <license uri="http://www.symfony-project.com/license">MIT license</license>
+      <date>2010-07-19</date>
+      <license>MIT</license>
+      <notes>
+        * config backup
+        * alias phpunit:runtest as just phpunit
+        * new type of fixture - file  
+        * move documentation to redmine wiki
+        * change generated directory names.
+      </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.0.11</release>
+        <api>1.2.0</api>
+      </version>
+      <stability>
+       <release>stable</release>
+       <api>1.2.0</api>
+      </stability>
+      <license uri="http://www.symfony-project.com/license">MIT license</license>
+      <date>2010-06-16</date>
+      <license>MIT</license>
+      <notes>
+        * fix bugs on windows 
+        * update documentation with link to example project
+      </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.0.10</release>
+          <api>1.2.0</api>
+        </version>
+        <stability>
+         <release>stable</release>
+         <api>1.2.0</api>
+        </stability>
+        <license uri="http://www.symfony-project.com/license">MIT license</license>
+        <date>2010-06-04</date>
+        <license>MIT</license>
+        <notes>
+          * fix doctrine fixture bug.
+        </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.0.9</release>
+          <api>1.2.0</api>
+        </version>
+        <stability>
+         <release>stable</release>
+         <api>1.2.0</api>
+        </stability>
+        <license uri="http://www.symfony-project.com/license">MIT license</license>
+        <date>2010-05-24</date>
+        <license>MIT</license>
+        <notes>
+          * own config file phpunit.yml
+          * fix fixture bugs.
+          * fix loader bugs.
+          * fix context managing bug.
+          * rewrite runtest task.
+          * improve test loader.
+          * plugin's test load.
+          * fix windows running problems. 
+        </notes>
+    </release>
+    <release>
+        <version>
+          <release>1.0.8</release>
+          <api>1.2.0</api>
+        </version>
+        <stability>
+         <release>stable</release>
+         <api>1.2.0</api>
+        </stability>
+        <license uri="http://www.symfony-project.com/license">MIT license</license>
+        <date>2010-01-20</date>
+        <license>MIT</license>
+        <notes>
+          * fix problems with running test under PHPUnit 3.3.x
+          * fix bug in sfPhpunit module
+        </notes>
+    </release>
+    <release>
+        <version>
+          <release>1.0.7</release>
+          <api>1.2.0</api>
+        </version>
+        <stability>
+         <release>stable</release>
+         <api>1.2.0</api>
+        </stability>
+        <license uri="http://www.symfony-project.com/license">MIT license</license>
+        <date>2009-12-30</date>
+        <license>MIT</license>
+        <notes>
+          * remove requirments from the package.xml. it's a bad way to do so
+        </notes>
+    </release>
+	  <release>
+	      <version>
+	        <release>1.0.6</release>
+	        <api>1.2.0</api>
+	      </version>
+	      <stability>
+	       <release>stable</release>
+	       <api>1.2.0</api>
+	      </stability>
+	      <license uri="http://www.symfony-project.com/license">MIT license</license>
+	      <date>2009-12-30</date>
+	      <license>MIT</license>
+	      <notes>
+	        * fix problems with installations
+	      </notes>
+	  </release>
+	  <release>
+	    <version>
+	      <release>1.0.5</release>
+	      <api>1.2.0</api>
+	    </version>
+	    <stability>
+	     <release>stable</release>
+	     <api>1.2.0</api>
+	    </stability>
+	    <license uri="http://www.symfony-project.com/license">MIT license</license>
+	    <date>2009-12-30</date>
+	    <license>MIT</license>
+	    <notes>
+	      * More flexible way to run tests
+	      * Module for showing test result in web
+	      * Flexible way to work with fixtures
+	      * Custom test cases(right now for testing amf services)
+	    </notes>
+	  </release>
+	  <release>
+	    <version>
+	      <release>1.0.5b1</release>
+	      <api>1.2.0</api>
+	    </version>
+	    <stability>
+	     <release>beta</release>
+	     <api>1.2.0</api>
+	    </stability>
+	    <license uri="http://www.symfony-project.com/license">MIT license</license>
+	    <date>2009-07-30</date>
+	    <license>MIT</license>
+	    <notes>
+	      * Added functional test support with PHPUnit
+	      * Added functional test class generation support
+	      * Cleaned up template directory
+	      * Implemented first unit tests for the plugin tasks
+	      * Improved customization possibility of templates
+	      * Added more options to unit test generation task (class_path, class, base_test_name, file_suffix, skip_methods, skip_alltests). No model binding anymore!
+	    </notes>
+	  </release>
+	  <release>
+	    <version>
+	      <release>1.0.5</release>
+	      <api>1.2.0</api>
+	    </version>
+	    <stability>
+	     <release>alpha</release>
+	     <api>1.2.0</api>
+	    </stability>
+	    <license uri="http://www.symfony-project.com/license">MIT license</license>
+	    <date>2009-02-01</date>
+	    <license>MIT</license>
+	    <notes>
+	      * Uses different directories from the 1.0.4 version. [everything now go in test/phpunit/*] (i.e. test/phpunit/model/UserTest.php, test/phpunit/AllPhpUnitTests.php)
+	      * Can now manage namespaces [1 only for now] (i.e. lib/model/user, lib/model/favorite)
+	      * Can now create a AllPhpUnitTests.php file for the target passed as parameter (i.e. model will create the modelAllPhpUnitTests.php)
+	      * Now all tests inherit from a base class name situated in the test/phpunit directory
+	      * Not working on doctrine for now
+	    </notes>
+	  </release>
+	  <release>
+	    <version>
+	      <release>1.0.4</release>
+	      <api>1.2.0</api>
+	    </version>
+	    <stability>
+	     <release>stable</release>
+	     <api>stable</api>
+	    </stability>
+	    <license uri="http://www.symfony-project.com/license">MIT license</license>
+	    <date>2009-01-19</date>
+	    <license>MIT</license>
+	    <notes>
+	      * Make sure it can be installed on 1.2.x
+	    </notes>
+	  </release>
+	  <release>
+	    <version>
+	      <release>1.0.3</release>
+	      <api>1.1.0</api>
+	    </version>
+	    <stability>
+	     <release>stable</release>
+	     <api>stable</api>
+	    </stability>
+	    <license uri="http://www.symfony-project.com/license">MIT license</license>
+	    <date>2008-11-10</date>
+	    <license>MIT</license>
+	    <notes>
+	      * Fixed problem with phpunit not finding test/AllTests.php in some environments. (Thanks Dominik Masur for your help)
+	    </notes>
+	  </release>
+	  <release>
+	    <version>
+	      <release>1.0.2</release>
+	      <api>1.1.0</api>
+	    </version>
+	    <stability>
+	     <release>stable</release>
+	     <api>stable</api>
+	    </stability>
+	    <license uri="http://www.symfony-project.com/license">MIT license</license>
+	    <date>2008-11-10</date>
+	    <license>MIT</license>
+	    <notes>
+	      * Fixed problem with Doctrine Table test classes (Thanks Dominik Masur for your help)
+	    </notes>
+	  </release>
+	  <release>
+	    <version>
+	      <release>1.0.1</release>
+	      <api>1.1.0</api>
+	    </version>
+	    <stability>
+	     <release>stable</release>
+	     <api>stable</api>
+	    </stability>
+	    <license uri="http://www.symfony-project.com/license">MIT license</license>
+	    <date>2008-11-07</date>
+	    <license>MIT</license>
+	    <notes>
+	      * Added support for Doctrine
+	      * Added model type option to arguments (propel/doctrine)
+	      * Added connection name option to arguments
+	      * Connection name and model path is determined by model type if it has not specified
+	      * Removed incorrect Propel dependency in task
+	    </notes>
+	  </release>
+	  <release>
+	    <version>
+	      <release>0.0.1</release>
+	      <api>1.1.0</api>
+	    </version>
+	    <stability>
+	     <release>beta</release>
+	     <api>stable</api>
+	    </stability>
+	    <license uri="http://www.symfony-project.com/license">MIT license</license>
+	    <date>2008-11-06</date>
+	    <license>MIT</license>
+	    <notes>
+	      * Initial release
+	    </notes>
+	  </release>
+</changelog>
+</package>

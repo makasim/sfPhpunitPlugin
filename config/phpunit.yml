@@ -1,6 +1,11 @@
 # this options will be accessable throught sfConfig::get with a name prefix: sf_phpunit_*
 
 all:
+  coverage:
+    collect: false
+    dir: '%SF_LOG_DIR%/coverage'
+  
+
   # project test directory
   dir:                   '%SF_TEST_DIR%/phpunit'
   

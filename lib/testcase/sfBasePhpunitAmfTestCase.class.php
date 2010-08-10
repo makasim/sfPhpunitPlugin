@@ -28,14 +28,18 @@ abstract class sfBasePhpunitAmfTestCase extends sfBasePhpunitTestCase
   protected $_amfservice = false;
 	
 	public function setUp()
-  {
+  {    
+    $this->_startCoverageCollection();
     $this->_setUpMapping();
-  	parent::setUp();
+  	
+    parent::setUp();
   }
   
   public function tearDown()
   {
+    $this->_endCoverageCollection();
   	$this->_tearDownMapping();
+  	
   	parent::tearDown();
   }
   
@@ -56,6 +60,28 @@ abstract class sfBasePhpunitAmfTestCase extends sfBasePhpunitTestCase
   protected function _tearDownMapping()
   {
   	SabreAMF_ClassMapper::$maps = $this->_defaultMapping;
+  }
+  
+  protected function _startCoverageCollection()
+  {
+    $options = sfConfig::get('sf_phpunit_coverage');
+    if (!$options['collect']) return;
+    
+    foreach(sfFinder::type('file')->maxdepth(0)->in($options['dir']) as $oldFile) {
+      unlink($oldFile);
+    }
+  }
+  
+  protected function _endCoverageCollection()
+  {    
+    $options = sfConfig::get('sf_phpunit_coverage');
+    if (!$options['collect']) return;    
+    
+    foreach(sfFinder::type('file')->maxdepth(0)->in($options['dir']) as $file) 
+    {
+      $data = unserialize(file_get_contents($file));
+      $this->result->appendCodeCoverageInformation($this, $data);
+    }
   }
   
   /**

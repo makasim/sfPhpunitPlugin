@@ -226,6 +226,9 @@ require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
 abstract class sfBasePhpunitSeleniumTestCase 
   extends PHPUnit_Extensions_SeleniumTestCase
 {
+  
+  protected static $_driver = null;
+  
   /**
    *
    * @var sfPhpunitFixture
@@ -237,6 +240,12 @@ abstract class sfBasePhpunitSeleniumTestCase
    * @var array
    */
   protected $_backupSfConfig = array();
+
+  protected $_browserData = array();
+
+  protected $_loggedin = false;
+
+  protected $_allowSingleBrowser = true;
 
   /**
    * Dev hook for custom "setUp" stuff
@@ -262,6 +271,8 @@ abstract class sfBasePhpunitSeleniumTestCase
     $this->_backupSfConfig();
     $this->_startCollectCoverage();
     $this->_startFillDriverWithDefaultOptions();
+    $this->_startDriver();
+    
     $this->_start();
   }
 
@@ -270,6 +281,11 @@ abstract class sfBasePhpunitSeleniumTestCase
    */
   public function tearDown()
   {
+    if($this->_isSingleBrowser()) 
+    {
+      $this->_resetSingleBrowser();
+    }
+    
     $this->_restoreSfConfig();
     $this->_end();
   }
@@ -371,5 +387,102 @@ abstract class sfBasePhpunitSeleniumTestCase
 
       $this->drivers[0]->$setOption($value);
     }
+  }
+  
+  protected function _startDriver()
+  {
+    $this->getDriver($this->_browserData);
+  }
+  
+  // -----------------------------------------------------
+
+  /**
+   * @return PHPUnit_Extensions_SeleniumTestCase_Driver
+   */
+  public static function getCurrentDriver()
+  {
+    if(!self::$_driver)
+    throw new Exception('Driver not found');
+
+    return self::$_driver;
+  }
+
+  /**
+   * @return bool
+   */
+  public static function hasCurrentDriver()
+  {
+    return self::$_driver ? true : false;
+  }
+
+  /**
+   * @param  array $browser
+   * @return PHPUnit_Extensions_SeleniumTestCase_Driver
+   * @since  Method available since Release 3.3.0
+   */
+  protected function getDriver(array $browser)
+  {
+    $this->_browserData = $browser;
+
+    if($this->_isSingleBrowser() && !is_null( $this->_isSingleBrowser() ))
+    {
+      $driver = $this->_getDriverForSingle($this->_browserData);
+    }
+    else
+    {
+      $driver = parent::getDriver($this->_browserData);
+    }
+
+    $this->drivers = array($driver);
+
+    return $driver;
+
+  }
+
+  protected function _getDriverForSingle(array $browser)
+  {
+
+    if(!self::$_driver)
+    {
+      self::$_driver = parent::getDriver($browser);
+    }
+
+    return self::$_driver;
+  }
+
+  protected function _isSingleBrowser()
+  {
+    if($this->_allowSingleBrowser)
+    {
+      return self::isSingleBrowser();
+    }
+    return null;
+  }
+
+  public static function isSingleBrowser()
+  {
+    return sfConfig::get('app_single_test_browser', null);
+  }
+
+  public function stop()
+  {
+    if(!$this->_isSingleBrowser())
+    {
+      $this->__call('stop', array());
+    }
+  }
+
+  public function stopBrowser()
+  {
+    if($this->_isSingleBrowser())
+    {
+      $this->__call('stop', array());
+      self::$_driver = null;
+      $this->_setupDriver();
+    }
+  }
+
+  protected function _resetSingleBrowser()
+  {
   }
 }

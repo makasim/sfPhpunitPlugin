@@ -96,10 +96,15 @@ abstract class sfPhpunitFixture
     
     $query = $this->pdo()->prepare('SHOW TABLES');
     $query->execute();
+       
+    $autoIncrement = 1001;
     while($table = $query->fetchColumn()) {
       if (strpos($table, $snapshotPrefix) !== false) continue;
       
       $this->pdo()->exec("TRUNCATE TABLE `{$table}`");
+      $this->pdo()->exec("ALTER TABLE `{$table}` AUTO_INCREMENT={$autoIncrement}");
+      
+      $autoIncrement += 1000;
     }
 
     $this->pdo()->exec("SET FOREIGN_KEY_CHECKS = 1;");

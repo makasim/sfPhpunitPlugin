@@ -1,6 +1,5 @@
 <?php
-
-require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
+sfPhpunitPluginConfiguration::initSeleniumExtension();
     
     /**
      * Delegate method calls to the driver.

@@ -10,10 +10,10 @@
 	  <email>mkotlar@ukr.net</email>
 	  <active>yes</active>
   </lead>
-  <date>2010-08-09</date>
+  <date>2010-09-15</date>
   <time>15:14:00</time>
   <version>
-    <release>1.0.13</release>
+    <release>1.0.14</release>
     <api>1.2.0</api>
   </version>
   <stability>
@@ -140,6 +140,22 @@
   </dependencies>
   <phprelease />
   <changelog>
+    <release>
+      <version>
+        <release>1.0.14</release>
+        <api>1.2.0</api>
+      </version>
+      <stability>
+       <release>stable</release>
+       <api>1.2.0</api>
+      </stability>
+      <license uri="http://www.symfony-project.com/license">MIT license</license>
+      <date>2010-09-15</date>
+      <license>MIT</license>
+      <notes>
+        * fix doctrine fixture handling
+      </notes>
+    </release>
     <release>
       <version>
         <release>1.0.13</release>

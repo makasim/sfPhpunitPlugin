@@ -90,23 +90,55 @@ abstract class sfPhpunitFixture
    */
   public function clean()
   {
-    $this->pdo()->exec("SET FOREIGN_KEY_CHECKS = 0;");
+    $this->pdo()->beginTransaction();
+    $this->enableConstraints(false);
     
     $snapshotPrefix = $this->_getOption('snapshot-table-prefix');
-    
-    $query = $this->pdo()->prepare('SHOW TABLES');
-    $query->execute();
+
+    $query = $this->showTables(); 
     while($table = $query->fetchColumn()) {
       if (strpos($table, $snapshotPrefix) !== false) continue;
       
-      $this->pdo()->exec("TRUNCATE TABLE `{$table}`");
+      $this->pdo()->exec("TRUNCATE TABLE {$table}");
     }
 
-    $this->pdo()->exec("SET FOREIGN_KEY_CHECKS = 1;");
+    $this->enableConstraints();
     
     $this->_getDataLoader()->cleanObjects();
     
+    $this->pdo()->commit();
+
     return $this;
+  }
+
+  protected function showTables(){
+      if($this->pdo() instanceof Doctrine_Adapter_Oracle){
+          $queryStr = "select table_name from user_tables";
+      }else{
+          $queryStr = "SHOW TABLES";
+      }
+
+      return $this->pdo()->query($queryStr);
+  }
+
+  protected function enableConstraints($enable = true){
+    if($enable){
+      $oracleAction = "enable";
+      $mysqlAction = 1;
+    }else{
+      $oracleAction = "disable";
+      $mysqlAction = 0;
+    }
+
+    if($this->pdo() instanceof Doctrine_Adapter_Oracle){
+      $queryStr = "SELECT 'alter table '||table_name||' {$oracleAction} constraint '||constraint_name||'' FROM user_constraints WHERE constraint_type = 'R'";
+      $query = $this->pdo()->query($queryStr);
+      while($constraint = $query->fetchColumn()){
+        $this->pdo()->exec($constraint);
+      }
+    }else{
+      $this->pdo()->exec("SET FOREIGN_KEY_CHECKS = {$mysqlAction};");
+    }
   }
 
   /**
@@ -124,36 +156,44 @@ abstract class sfPhpunitFixture
   {   
     $this->_notify('before_do_snapshot', array('name' => $name));
     
-    $query = $this->pdo()->query('SHOW TABLES');
+    $this->pdo()->beginTransaction();
+
+    $query = $this->showTables(); 
     $snapshotPrefix = $this->_getOption('snapshot-table-prefix');
     
     while($table = $query->fetchColumn()) {
       if (strpos($table, $snapshotPrefix) !== false) continue;
       
       $snapshop_table = "{$snapshotPrefix}_{$name}_{$table}";
-      $this->pdo()->exec("DROP TABLE IF EXISTS `{$snapshop_table}`");
-      $this->pdo()->exec("CREATE TABLE `{$snapshop_table}` SELECT * FROM `{$table}`");
+      $this->pdo()->exec("DROP TABLE IF EXISTS {$snapshop_table}");
+      $this->pdo()->exec("CREATE TABLE {$snapshop_table} SELECT * FROM {$table}");
     }
 
     self::$_snapshots[$name] = $name;
     
     $this->_notify('after_do_snapshot', array('name' => $name));
+
+    $this->pdo()->commit();
     
     return $this;
   }
   
   public function cleanSnapshots()
   {
-    $query = $this->pdo()->query('SHOW TABLES');
+    $query = $this->showTables();
+    $this->pdo()->beginTransaction();
+
     $snapshotPrefix = $this->_getOption('snapshot-table-prefix');
     
     while($table = $query->fetchColumn()) {
       if (strpos($table, $snapshotPrefix) === false) continue;
       
-      $this->pdo()->exec("DROP TABLE IF EXISTS `{$table}`");
+      $this->pdo()->exec("DROP TABLE IF EXISTS {$table}");
     }
     
     $this->_notify('after_clean_snapshots');
+
+    $this->pdo()->commit();
 
     return $this;
   }
@@ -170,19 +210,24 @@ abstract class sfPhpunitFixture
 //    }
     
     $this->_notify('before_load_snapshot', array('name' => $name));
-    
-    $this->pdo()->exec("SET FOREIGN_KEY_CHECKS = 0;");
-    
-    $query = $this->pdo()->query('SHOW TABLES');
+
+    $this->pdo()->beginTransaction();
+
+    $this->enableConstraints(false);
+
+    $query = $this->showTables(); 
+
     while($table = $query->fetchColumn()) {
       if (strpos($table, '_snapshot_') !== false) continue;
       
       $snapshop_table = "_snapshot_{$name}_{$table}";
-      $this->pdo()->exec("TRUNCATE TABLE `{$table}`");
-      $this->pdo()->exec("INSERT INTO {$table} SELECT * FROM `{$snapshop_table}`");
+      $this->pdo()->exec("TRUNCATE TABLE {$table}");
+      $this->pdo()->exec("INSERT INTO {$table} SELECT * FROM {$snapshop_table}");
     }
 
-    $this->pdo()->exec("SET FOREIGN_KEY_CHECKS = 1;");
+    $this->enableConstraints();
+
+    $this->pdo()->commit();
     
     $this->_notify('after_load_snapshot', array('name' => $name));
     

@@ -14,7 +14,7 @@ class sfPhpunitDoctrineData14 extends sfPhpunitDoctrineBaseData
 	  
 	  list($class, $id) = explode('_', $id, 2);
 	  $table = Doctrine_Core::getTable($class)->getTableName();	  
-    $id = '('.strtolower($table).') '.$id;
+      $id = '('.$table.') '.$id;
 
    	if (!isset($this->_importedObjects[$id])) {
    	  throw new Exception('The data object with given id `'.$id.'` does not exist');  

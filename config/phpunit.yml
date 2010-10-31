@@ -2,7 +2,7 @@
 
 all:
   framework:
-    autoload_script: '%SF_ROOT_DIR/plugins/sfPhpunitPlugin/config/autoload_3.4.php%'
+    autoload_script: '%SF_ROOT_DIR%/plugins/sfPhpunitPlugin/config/autoload_3.4.php'
 
   # project test directory
   dir:                   '%SF_TEST_DIR%/phpunit'

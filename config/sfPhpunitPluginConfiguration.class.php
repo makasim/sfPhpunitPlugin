@@ -23,7 +23,7 @@ class sfPhpunitPluginConfiguration extends sfPluginConfiguration
    */
   protected function _getProjectConfiguration()
   {
-    return $this->configuration;    
+    return $this->configuration;
   }
   
   /**
@@ -37,7 +37,7 @@ class sfPhpunitPluginConfiguration extends sfPluginConfiguration
       $this->_getProjectConfiguration()->getEventDispatcher(), 
       new sfAnsiColorFormatter());
       
-    $initTask->run();    
+    $initTask->run();
   }
   
   /**
@@ -54,7 +54,7 @@ class sfPhpunitPluginConfiguration extends sfPluginConfiguration
   protected function loadFramework() 
   {
     $options = sfConfig::get('sf_phpunit_framework');
-    
+
     include $options['autoload_script'];
   }
 }

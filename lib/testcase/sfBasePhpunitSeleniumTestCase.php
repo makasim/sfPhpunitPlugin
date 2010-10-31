@@ -1,6 +1,5 @@
 <?php
-sfPhpunitPluginConfiguration::initSeleniumExtension();
-    
+
     /**
      * Delegate method calls to the driver.
      *

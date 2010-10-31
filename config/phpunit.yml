@@ -1,6 +1,9 @@
 # this options will be accessable throught sfConfig::get with a name prefix: sf_phpunit_*
 
 all:
+  framework:
+    autoload_script: '%SF_ROOT_DIR/plugins/sfPhpunitPlugin/config/autoload_3.4.php%'
+
   # project test directory
   dir:                   '%SF_TEST_DIR%/phpunit'
   
@@ -16,7 +19,7 @@ all:
   filter: 
     - {path: '%SF_LIB_DIR%/vendor', ext: .php}
     - {path: '%SF_LIB_DIR%/symfony', ext: .php}
-    - {path: '%SF_ROOT_DIR%/plugins', ext: .php}
+    - {path: v/plugins', ext: .php}
     - {path: '%SF_ROOT_DIR%/test', ext: .php}
         
   amf:

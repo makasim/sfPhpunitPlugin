@@ -45,25 +45,6 @@ class sfPhpunitFixtureDoctrine extends sfPhpunitFixture
     return $this;
   }
 
-  /**
-   * (non-PHPdoc)
-   * @see plugins/sfPhpunitPlugin/lib/fixture/sfPhpunitFixtureAbstract#clean()
-   */
-  public function clean()
-  {
-    $this->_notify('before_clean');
-    
-    $this->_getDataLoader()->cleanObjects();
-   
-    parent::clean();
-    
-    $this->_clearRepositories();
-    
-    $this->_notify('after_clean');
-  
-    return $this;
-  }
-
   /** 
    * (non-PHPdoc)
    * @see plugins/sfPhpunitPlugin/lib/fixture/sfPhpunitFixtureAbstract#get($file, $fixture_type)
@@ -73,24 +54,14 @@ class sfPhpunitFixtureDoctrine extends sfPhpunitFixture
     return $this->_getDataLoader()->getObject($id);
   }
   
+  /**
+   * (non-PHPdoc)
+   * @see plugins/sfPhpunitPlugin/lib/fixture/sfPhpunitFixture::_pdo()
+   */
   protected function _pdo()
   {    
-    return Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
-  }
-  
-  public function loadSnapshot($name)
-  {
-    parent::loadSnapshot($name);
-    
-    $this->_clearRepositories();
-    
-    return $this;
-  }
-  
-  protected function _clearRepositories()
-  {
-    Doctrine_Manager::getInstance()
-    ->getCurrentConnection()->clear();
+    return sfPhpunitFixtureDb::factory(
+      Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh());
   }
   
   protected function _getDataLoader()

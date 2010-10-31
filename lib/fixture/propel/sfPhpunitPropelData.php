@@ -47,6 +47,11 @@ class sfPhpunitPropelData extends sfPropelData
 	  $this->object_references = self::$_snapshots[$name];
 	}
 	
+  public function cleanSnapshots()
+  {
+    self::$_snapshots = array();
+  }
+	
 	public function cleanObjects()
 	{
 		$this->object_references = array();

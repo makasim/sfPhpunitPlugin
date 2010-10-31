@@ -53,31 +53,10 @@ class sfPhpunitFixturePropel extends sfPhpunitFixture
     return $this->_getDataLoader()->getObject($id);
   }
   
-  public function doSnapshot($name)
-  {   
-    parent::doSnapshot($name);
-    
-    $this->_getDataLoader()->doSnapshot($name);
-    
-    return $this;
-  }
-  
-  /**
-   * 
-   * @param string $name
-   */
-  public function loadSnapshot($name)
-  {
-    parent::loadSnapshot($name);
-    
-    $this->_getDataLoader()->loadSnapshot($name);
-   
-    return $this;
-  }
-  
   protected function _pdo()
   {
-    return Propel::getConnection($this->_getOption('connection'));
+    return sfPhpunitFixtureDb::factory(
+      Propel::getConnection($this->_getOption('connection')));
   }
   
   /**

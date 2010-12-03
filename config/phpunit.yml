@@ -16,11 +16,16 @@ all:
     dbunit:
   
 
-  filter: 
-    - {path: '%SF_LIB_DIR%/vendor', ext: .php}
-    - {path: '%SF_LIB_DIR%/symfony', ext: .php}
-    - {path: v/plugins', ext: .php}
-    - {path: '%SF_ROOT_DIR%/test', ext: .php}
+  filter:
+    vendor: {path: '%SF_LIB_DIR%/vendor', ext: '.php'}
+    plugins: {path: '%SF_ROOT_DIR%/plugins', ext: '.php'}
+    cache: {path: '%SF_ROOT_DIR%/cache', ext: '*'}
+    log: {path: '%SF_ROOT_DIR%/log', ext: '*'}
+    apps: {path: '%SF_ROOT_DIR%/apps', ext: '*'}
+    models-base: {path: '%SF_LIB_DIR%/model/doctrine/base', ext: '*'}
+    form-base: {path: '%SF_LIB_DIR%/form/doctrine/base', ext: '*'}
+    filter-base: {path: '%SF_LIB_DIR%/filter/doctrine/base', ext: '*'}
+    tests: {path: '%SF_ROOT_DIR%/test', ext: '.php'}
         
   amf:
     endpoint:            false

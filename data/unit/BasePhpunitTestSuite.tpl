@@ -20,10 +20,10 @@ class {className} extends sfBasePhpunitTestSuite
 	
 	protected function _initFilters()
 	{
-	  $filters = sfConfig::get('app_sfPhpunitPlugin_filter', array());
-	  foreach ($filters as $filter) {
-	    PHPUnit_Util_Filter::addDirectoryToFilter($filter['path'], $filter['ext']);
-	  }
+	  $filters = sfConfig::get('phpunit_filter', array());
+    foreach ($filters as $filter) {
+      PHPUnit_Util_Filter::addDirectoryToFilter($filter['path'], $filter['ext']);
+    }
 	}
 	
 	public function getApplication()

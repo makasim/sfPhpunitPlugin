@@ -144,7 +144,9 @@ abstract class sfBasePhpunitTestCase
       if ($stub instanceof $stubLatter) continue;
 
       $stubedMethod = $mock->expects($expects)->method($method);
-      if ($stub instanceof sfCallable) {
+      if (is_callable($stub)) {
+        $stubedMethod->will($this->returnCallback($stub));
+      } else if ($stub instanceof sfCallable) {
         $stubedMethod->will($this->returnCallback($stub->getCallable()));
       } else if ($stub instanceof Exception) {
         $stubedMethod->will($this->throwException($stub));

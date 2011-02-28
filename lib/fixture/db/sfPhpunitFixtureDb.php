@@ -46,7 +46,7 @@ abstract class sfPhpunitFixtureDb
     while($table = $query->fetchColumn()) {
       if (strpos($table, $this->getSnaphotTablePrefix()) !== false) continue;
 
-      $snapshop_table = "{$this->getSnaphotTablePrefix()}_{$name}_{$table}";
+      $snapshop_table = "{$this->getSnaphotTablePrefix()}_{$name}__{$table}";
       $this->exec("TRUNCATE TABLE {$table}");
       $this->exec("INSERT INTO {$table} SELECT * FROM {$snapshop_table}");
     }
@@ -60,7 +60,7 @@ abstract class sfPhpunitFixtureDb
     while($table = $query->fetchColumn()) {
       if (strpos($table, $this->getSnaphotTablePrefix()) !== false) continue;
 
-      $snapshop_table = "{$this->getSnaphotTablePrefix()}_{$name}_{$table}";
+      $snapshop_table = "{$this->getSnaphotTablePrefix()}_{$name}__{$table}";
       $this->exec("DROP TABLE IF EXISTS {$snapshop_table}");
       $this->exec("CREATE TABLE {$snapshop_table} SELECT * FROM {$table}");
     }

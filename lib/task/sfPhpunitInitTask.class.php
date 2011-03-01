@@ -24,6 +24,7 @@ class sfPhpunitInitTask extends sfBasePhpunitCreateTask
     $this->name             = 'init';
     $this->briefDescription = 'Prepare files and dirs needed for phpunit';
     $this->detailedDescription = <<<EOF
+
 EOF;
 
     parent::configure();
@@ -66,7 +67,14 @@ EOF;
         'className' => 'BasePhpunitTestSuite',
         'application' => $this->getFirstApplication()));
 
-    $this->_createFile('AllTests.php', 'unit/AllTests.tpl');
+    $this->_createSuiteClass(
+      '', 'unit/BasePhpunitTestSuite.tpl', array(
+        'className' => 'BasePhpunitTestSuite',
+        'application' => $this->getFirstApplication()));
+
+    $this->_createFile(
+      'fixtures/sfPhpunitDoSnapshotContainer.php',
+      'test/sfPhpunitDoSnapshotContainer.tpl');
   }
 
   protected function _initFixturesDirs(PHPUnit_Framework_TestSuite $suite = null)

@@ -199,17 +199,14 @@ EOF;
 		{
 			throw new sfCommandException(sprintf('PHP file %s not found.', $classFilePath));
 		}		
+ 
+	  $vars = array(
+            'className' => $className.'TestCase',
+            'parentName' => 'sfBasePhpunitTestCase', 
+            'modelClassName' => $arguments['class'],
+            'methods' => $this->_renderMethods($className));
 
-		$parentName = $arguments['type'] == 'propel' ? 
-		  'sfPhpunitPropelTestCase' : 'sfPhpunitDoctrineTestCase'; 
-
-		$vars = array(
-      'className' => $className.'TestCase',
-      'parentName' => $parentName, 
-      'modelClassName' => $arguments['class'],
-		  'methods' => $this->_renderMethods($className));
-
-    $this->_createModelClass($targetDir, $vars);
+          $this->_createModelClass($targetDir, $vars);
 	}
 	
 	protected function _createModelClass($targetDir, array $vars = array())

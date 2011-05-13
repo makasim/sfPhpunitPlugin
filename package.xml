@@ -10,10 +10,10 @@
 	  <email>mkotlar@ukr.net</email>
 	  <active>yes</active>
   </lead>
-  <date>2010-09-15</date>
-  <time>15:14:00</time>
+  <date>2011-05-13</date>
+  <time>13:11:00</time>
   <version>
-    <release>1.0.14</release>
+    <release>1.0.20</release>
     <api>1.2.0</api>
   </version>
   <stability>
@@ -25,6 +25,8 @@
   <contents>
     <dir name="/">
       <dir name="config">
+        <file role="data" name="autoload_3.4.php" />
+        <file role="data" name="autoload_3.5.php" />
         <file role="data" name="phpunit.yml" />
         <file role="data" name="sfPhpunitPluginConfiguration.class.php" />
       </dir>
@@ -40,16 +42,22 @@
         <dir name="test">
           <file role="data" name="file.tpl" />
           <file role="data" name="sfPhpunitPluginTestClass.tpl" />
+          <file role="data" name="sfPhpunitDoSnapshotContainer.tpl" />
         </dir>
         <dir name="unit">
           <file role="data" name="AllTests.tpl" />
-					<file role="data" name="BasePhpunitTestCase.tpl" />
-					<file role="data" name="BasePhpunitTestSuite.tpl" />
-					<file role="data" name="TestCase.tpl" />
+          <file role="data" name="BasePhpunitTestCase.tpl" />
+          <file role="data" name="BasePhpunitTestSuite.tpl" />
+          <file role="data" name="TestCase.tpl" />
         </dir>
       </dir>
       <dir name="lib">
         <dir name="fixture">
+          <dir name="db">
+            <file role="data" name="sfPhpunitFixtureDb.php" />
+            <file role="data" name="sfPhpunitFixtureDbMysql.php" />
+            <file role="data" name="sfPhpunitFixtureDbOracle.php" />
+          </dir>
           <dir name="dbunit">
             <file role="data" name="sfPhpunitFixtureDbUnit.php" />
           </dir>
@@ -58,16 +66,18 @@
             <file role="data" name="sfPhpunitDoctrineData12.php" />
             <file role="data" name="sfPhpunitDoctrineData14.php" />
             <file role="data" name="sfPhpunitFixtureDoctrine.php" />
+            <file role="data" name="sfPhpunitFixtureAggregator.php" />
+          </dir>
+          <dir name="file">
+            <file role="data" name="sfPhpunitFixtureFile.php" />
           </dir>
           <dir name="propel">
             <file role="data" name="sfPhpunitFixturePropel.php" />
             <file role="data" name="sfPhpunitPropelData.php" />
           </dir>
-          <dir name="file">
-            <file role="data" name="sfPhpunitFixtureFile.php" />
-          </dir>
           <file role="data" name="sfPhpunitFixture.php" />
           <file role="data" name="sfPhpunitFixtureAggregatorInterface.php" />
+          <file role="data" name="sfBasePhpunitFixtureAggregator.php" />
         </dir>
         <dir name="loader">
           <file role="data" name="sfPhpunitBaseTestLoader.php" />
@@ -76,54 +86,56 @@
         </dir>
         <dir name="task">
           <!-- tasks -->
-					<file role="data" name="sfBasePhpunitCreateTask.class.php" />
-					<file role="data" name="sfPhpunitCreateTestTask.class.php" />
-					<file role="data" name="sfPhpunitInitTask.class.php" />
-					<file role="data" name="sfPhpunitRuntestTask.class.php" />
+          <file role="data" name="sfBasePhpunitCreateTask.class.php" />
+          <file role="data" name="sfPhpunitCreateTestTask.class.php" />
+          <file role="data" name="sfPhpunitInitTask.class.php" />
+          <file role="data" name="sfPhpunitRuntestTask.class.php" />
+          <file role="data" name="sfPhpunitDoSnapshotsTask.class.php" />
         </dir>
         <dir name="test">
           <!-- test classes -->
-					<file role="data" name="sfBasePhpunitTestSuite.class.php" />
-					<file role="data" name="sfPhpunitContextInitilizerInterface.php" />
-					<file role="data" name="sfPhpunitStubLatter.php" />
+          <file role="data" name="sfBasePhpunitTestSuite.class.php" />
+          <file role="data" name="sfPhpunitContextInitilizerInterface.php" />
+          <file role="data" name="sfPhpunitStubLatter.php" />
+          <file role="data" name="sfPhpunitBaseDoSnapshotContainer.php" />
         </dir>
         <dir name="testcase">
           <dir name="amf">
-	          <file role="data" name="sfPhpunitAmfClient.php" />
-	          <file role="data" name="sfPhpunitAmfService.php" />
+            <file role="data" name="sfPhpunitAmfClient.php" />
+            <file role="data" name="sfPhpunitAmfService.php" />
           </dir>
           <dir name="selenium">
             <file role="data" name="sfPhpunitSeleniumRemouteFixtureDecorator.php" />
           </dir>
-					<file role="data" name="sfBasePhpunitAmfTestCase.class.php" />
-					<file role="data" name="sfBasePhpunitSeleniumTestCase.php" />
-					<file role="data" name="sfBasePhpunitTestCase.class.php" />
+          <file role="data" name="sfBasePhpunitAmfTestCase.class.php" />
+          <file role="data" name="sfBasePhpunitSeleniumTestCase.php" />
+          <file role="data" name="sfBasePhpunitTestCase.class.php" />
         </dir>
       </dir>
       <dir name="modules">
         <dir name="sfPhpunit">
           <dir name="actions">
-		        <file role="data" name="actions.class.php" />
-	        </dir>
-	        <dir name="config">
-	 	        <file role="data" name="security.yml" />
-	        </dir>
-	        <dir name="templates">
-					  <file role="data" name="_tree.php" />
-					  <file role="data" name="indexSuccess.php" />
-					  <file role="data" name="runSuccess.php" />
-	        </dir>
-	      </dir>
+            <file role="data" name="actions.class.php" />
+          </dir>
+          <dir name="config">
+            <file role="data" name="security.yml" />
+          </dir>
+          <dir name="templates">
+            <file role="data" name="_tree.php" />
+            <file role="data" name="indexSuccess.php" />
+            <file role="data" name="runSuccess.php" />
+          </dir>
+        </dir>
       </dir>
-		  <dir name="test">
-		    <dir name="phpunit">
-		      <dir name="fixtures">
-		      </dir>
-		      <file role="data" name="sfPhpunitPluginTestFooTestCase.php" />
-		    </dir>
-		  </dir>
-		  <file role="data" name="LICENSE" />
-		  <file role="data" name="README" />
+      <dir name="test">
+        <dir name="phpunit">
+          <dir name="fixtures">
+          </dir>
+          <file role="data" name="sfPhpunitPluginTestFooTestCase.php" />
+        </dir>
+       </dir>
+       <file role="data" name="LICENSE" />
+       <file role="data" name="README" />
     </dir>
   </contents>
   <dependencies>
@@ -131,15 +143,35 @@
       <php><min>5.2.4</min></php>
       <pearinstaller><min>1.4.1</min></pearinstaller>
       <package>
-				<name>symfony</name>
-				<channel>pear.symfony-project.com</channel>
-				<min>1.2.0</min>
-				<max>1.4.40</max>
+        <name>symfony</name>
+        <channel>pear.symfony-project.com</channel>
+        <min>1.2.0</min>
+        <max>1.4.40</max>
       </package>
     </required>
   </dependencies>
   <phprelease />
   <changelog>
+    <release>
+      <version>
+        <release>1.0.20</release>
+        <api>1.2.0</api>
+      </version>
+      <stability>
+       <release>stable</release>
+       <api>1.2.0</api>
+      </stability>
+      <license uri="http://www.symfony-project.com/license">MIT license</license>
+      <date>2011-05-13</date>
+      <license>MIT</license>
+      <notes>
+        * phpunit 3.5 support
+        * support oracle 10g
+        * fix doctrine fixture handling
+        * fix propel fixture handling
+        * prepared snapshots
+      </notes>
+    </release>
     <release>
       <version>
         <release>1.0.14</release>

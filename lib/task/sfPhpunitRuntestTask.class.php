@@ -113,8 +113,9 @@ EOF;
   
   protected function runTests($suite)
   {
+    $arguments = sfConfig::get('sf_phpunit_arguments', array());
     $runner = new PHPUnit_TextUI_TestRunner();
-    $runner->doRun($suite);
+    $runner->doRun($suite, $arguments);
   }
   
   protected function executeInitTask()

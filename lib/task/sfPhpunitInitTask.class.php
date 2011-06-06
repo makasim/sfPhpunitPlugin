@@ -62,11 +62,8 @@ EOF;
   {
     if (!$this->_isAllowed('base_classes')) return;
 
-    $this->_createSuiteClass(
-      '', 'unit/BasePhpunitTestSuite.tpl', array(
-        'className' => 'BasePhpunitTestSuite',
-        'application' => $this->getFirstApplication()));
-
+    $this->_createFile('AllTests.php', 'unit/AllTests.tpl');
+    
     $this->_createSuiteClass(
       '', 'unit/BasePhpunitTestSuite.tpl', array(
         'className' => 'BasePhpunitTestSuite',

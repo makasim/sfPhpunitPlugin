@@ -15,7 +15,6 @@ class sfPhpunitPluginConfiguration extends sfPluginConfiguration
       'plugin.post_install',
       array($this, 'postInstall'));
       
-    $this->loadFramework();
   }
   
   /**
@@ -38,23 +37,5 @@ class sfPhpunitPluginConfiguration extends sfPluginConfiguration
       new sfAnsiColorFormatter());
       
     $initTask->run();
-  }
-  
-  /**
-   * 
-   * The scripts tries to include Phpunit Framework files, by default it 
-   * 
-   * defined to look for Phpunit 3.4 as a PEAR package
-   * 
-   * you can find standrat autload files in PLUGIN/config/autload*.php fiels
-   * 
-   * and check the config comes with a plugin.
-   * 
-   */
-  protected function loadFramework() 
-  {
-    $options = sfConfig::get('sf_phpunit_framework');
-
-    include $options['autoload_script'];
   }
 }

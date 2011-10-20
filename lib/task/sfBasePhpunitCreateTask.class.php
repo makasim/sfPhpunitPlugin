@@ -26,6 +26,9 @@ abstract class sfBasePhpunitCreateTask extends sfBaseTask
   
   protected function execute($arguments = array(), $options = array())
   {
+    $config = sfConfig::get('sf_phpunit_framework');
+    include $config['autoload_script'];
+
     $this->_isVerbose = (bool) $options['verbose'];
     $this->_isOverwrite = (bool) $options['overwrite'];
   }

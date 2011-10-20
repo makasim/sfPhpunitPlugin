@@ -59,6 +59,9 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
+    $config = sfConfig::get('sf_phpunit_framework');
+    include $config['autoload_script'];
+
     $this->arguments = $arguments;
     $this->options = $options;
     

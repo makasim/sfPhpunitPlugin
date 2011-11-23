@@ -23,7 +23,10 @@ class {className} extends sfBasePhpunitTestSuite
     $filters = sfConfig::get('sf_phpunit_filter', array());
     foreach ($filters as $filter) {
 
-      if (version_compare(PHPUnit_Runner_Version::id(), '3.5') >= 0) {
+      if (version_compare(PHPUnit_Runner_Version::id(), '3.6') >= 0) {
+        $coverage_filter = new PHP_CodeCoverage_Filter();
+        $coverage_filter->addDirectoryToBlacklist($filter['path']);
+      } else if (version_compare(PHPUnit_Runner_Version::id(), '3.5') >= 0) {
         PHP_CodeCoverage_Filter::getInstance()->addDirectoryToBlacklist($filter['path']);
       } else {
         PHPUnit_Util_Filter::addDirectoryToFilter($filter['path'], $filter['ext']);

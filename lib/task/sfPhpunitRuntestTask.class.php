@@ -71,7 +71,8 @@ EOF;
     $this->handlePluginsTests($suite);
     $this->handleProjectTests($suite);
     
-  	$this->runTests($suite);
+    $result = $this->runTests($suite);
+    return $result->wasSuccessful() ? 0 : 1;
   }
   
   protected function handlePluginsTests($suite)
@@ -114,6 +115,9 @@ EOF;
      sfPhpunitProjectTestLoader::factory($this->arguments['path'])->suite());
   }
   
+  /**
+   * @return PHPUnit_Framework_TestResult
+   */
   protected function runTests($suite)
   {
     $arguments = sfConfig::get('sf_phpunit_arguments', array());

@@ -148,8 +148,11 @@ abstract class sfPhpunitBaseTestLoader
       }
       
       return $classes;
-    } else {
+    } elseif (version_compare(PHPUnit_Runner_Version::id(), '3.7', '<')) {
       return array_keys(PHPUnit_Util_File::getClassesInFile($path));
+    } else {
+        $stream = new PHP_Token_Stream($path);
+        return array_keys($stream->getClasses());
     }
   }
   
